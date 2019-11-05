@@ -26,6 +26,12 @@
                     path: /tmp/info
                     line: SERVIDOR DE BANCO DE DADOS MYSQL
                     create: yes
+                    ##Install My SQL
+          - name: Instalando my SQL
+            apt:
+                    state: present
+                    pkg:
+                            - mysql-server
 ##Webservers
 - hosts: web
   remote_user: vagrant
@@ -36,3 +42,20 @@
                     path: /tmp/info
                     line: SERVIDOR DO BLOG WORDPRESS
                     create: yes
+          - name: Instalando Apache+PHP
+            apt:
+                    update_cache: yes
+                    state: present
+                    pkg:
+                            - apache2
+                            - php-curl
+                            - php-gd
+                            - php-mbstring
+                            - php-xml
+                            - php-xmlrpc
+                            - php-soap
+                            - php-intl
+                            - php-zip
+                            - php
+                            - libapache2-mod-php
+                            - php-mysql
