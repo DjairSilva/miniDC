@@ -32,6 +32,26 @@
                     state: present
                     pkg:
                             - mysql-server
+                            - python-pymysql
+          - name: Definindo a Senha de Administrador do MySQL
+            debconf: name='mysql-server' question='mysql-server/root_password' value='123' vtype='password'
+          - name: Confirmando a Senha de Administrador do MySQL
+            debconf: name='mysql-server' question='mysql-server/root_password_again' value='123' vtype='password'
+          - name: Criando a Base de Dados
+            mysql_db:
+                    name: wordpress
+                    state: present
+                    login_user: root
+                    login_password: 123
+          - name: Criando o usuário do Banco
+            mysql_user:
+                    name: wordpress
+                    password: impacta
+                    priv: '*.*:ALL'
+                    state: present
+                    host: 172.17.177.22
+                    login_user: root
+                    login_password: 123
 ##Webservers
 - hosts: web
   remote_user: vagrant
